@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    dockerImage = docker.build("winterzone2/jenkins-test:latest")
+                    sh "docker build -t winterzone2/jenkins-test:latest ."
                 }
             }
         }
