@@ -2,6 +2,7 @@ pipeline {
     agent {
         kubernetes {
             yamlFile "build-pod.yaml"
+            defaultContainer "ez-docker-helm-build"
         }
     }
     stages {
