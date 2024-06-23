@@ -25,7 +25,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-creds') {
-                        sh "docker push winterzone2/jenkins-test:latest"
+                        sh "docker push winterzone2/jenkins-test"
                     }
                 }
             }
