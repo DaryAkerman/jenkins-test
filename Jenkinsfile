@@ -14,7 +14,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh "docker build -t winterzone2/jenkins-test:latest ."
+                    dockerImage = docker.build("winterzone2/jenkins-test:latest")
                 }
             }
         }
@@ -25,7 +25,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-creds') {
-                        sh "docker push winterzone2/jenkins-test"
+                        dockerImage.push("latest")
                     }
                 }
             }
