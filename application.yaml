@@ -1,26 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: jenkins-test
+  name: flask-app
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://github.com/DaryAkerman/jenkins-test
-    targetRevision: HEAD
-    path: ./myapp
-    helm:
-      parameters:
-        - name: image.repository
-          value: winterzone2/jenkins-test
-        - name: image.tag
-          value: latest
-        - name: image.pullPolicy
-          value: Always
+    repoURL: https://github.com/DaryAkerman/jenkins-test #repo url
+    targetRevision: main #branch
+    path: ./myapp #chart path
   destination:
     server: https://kubernetes.default.svc
     namespace: default
   syncPolicy:
     automated:
-      selfHeal: true
       prune: true
+      selfHeal: true
