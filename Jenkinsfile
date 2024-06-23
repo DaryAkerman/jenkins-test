@@ -1,33 +1,27 @@
 pipeline {
     agent {
         kubernetes {
-            yamlFile "build-pod.yaml"
-            defaultContainer "ez-docker-helm-build"
+            yamlFile 'build-pod.yaml'
+            defaultContainer 'ez-docker-helm-build'
         }
     }
+    environment {
+        DOCKER_IMAGE = "winterzone2/jenkins-test"
+    }
     stages {
-        stage('Checkout') {
+        stage("Checkout") {
             steps {
                 checkout scm
             }
         }
-        stage('Build') {
-            steps {
-                script {
-                    dockerImage = docker.build("winterzone2/jenkins-test:latest")
-                }
-            }
-        }
-        stage("Push") {
+        stage("Print Hello World") {
             when {
-                branch 'main'
+                not {
+                    branch 'main'
+                }
             }
             steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-creds') {
-                        dockerImage.push("latest")
-                    }
-                }
+                sh "echo 'hello world'"
             }
         }
     }
