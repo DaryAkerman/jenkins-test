@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        kubernetes {
+            yamlFile "build-pod.yaml"
+        }
+    }
     stages {
         stage('Checkout') {
             steps {
