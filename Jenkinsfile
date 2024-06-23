@@ -18,5 +18,17 @@ pipeline {
                 }
             }
         }
+        stage("Push") {
+            when {
+                branch 'main'
+            }
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-creds') {
+                        sh "docker push winterzone2/jenkins-test:latest"
+                    }
+                }
+            }
+        }
     }
 }
